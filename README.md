@@ -6,6 +6,6 @@
 npm install -g cmb-cli
 
 # 生成项目
-cmb-cli demo
+cmb-cli init demo
 ```
 ![](assests/demo.svg)
