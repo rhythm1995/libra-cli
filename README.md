@@ -8,5 +8,4 @@ npm install -g cmb-cli
 # 生成项目
 cmb-cli demo
 ```
-
-<a href="url"><img src="assests/demo.svg" ></a>
+![](assests/demo.svg)
