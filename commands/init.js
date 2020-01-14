@@ -3,7 +3,9 @@ const shell = require('shelljs');
 const symbols = require('log-symbols');
 const clone = require('../utils/clone.js');
 const fs = require('fs');
+const http = require('http');
 const remote = 'https://gitee.com/bugzhang/libra-demo.git';
+const insideRemote = 'http//:mayun.itc.cmbchina.cn/80284745/libra-demo.git';
 let branch = 'master';
 
 const initAction = async (name, option) => {
@@ -24,7 +26,20 @@ const initAction = async (name, option) => {
 	// 2. 获取option，确定模板类型（分支）
 	if (option.dev) branch = 'develop';
 	// 4. 下载模板
-	await clone(`direct:${remote}#${branch}`, name, { clone: true });
+	const http = require('http');
+	let statusCode = 0;
+	const req = http.get({
+		host: 'baidu.com'
+	}, res => {
+		statusCode = res.statusCode;
+	});
+
+	if (statusCode === 200) {
+		await clone(`direct:${remote}#${branch}`, name, { clone: true });
+	} else {
+		await clone(`direct:${insideRemote}#${branch}`, name, { clone: true });
+	}
+
 	// 5. 清理文件
 	const deleteDir = ['.git']; // 需要清理的文件
 	const pwd = shell.pwd();

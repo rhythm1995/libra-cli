@@ -5,6 +5,8 @@
 # 全局安装
 npm install -g cmb-cli
 
-# 生成目录
+# 生成项目
 cmb-cli demo
 ```
+
+<a href="url"><img src="assests/demo.svg" ></a>
