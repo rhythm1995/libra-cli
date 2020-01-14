@@ -1,5 +1,5 @@
 {
-	"name": "libra-cli",
+	"name": "cmb-cli",
 	"version": "1.0.0",
 	"description": "A vue develop template cli tools",
 	"main": "index.js",
@@ -7,7 +7,7 @@
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"bin": {
-		"libra-cli": "index.js"
+		"cmb-cli": "index.js"
 	},
 	"repository": {
 		"type": "git",
