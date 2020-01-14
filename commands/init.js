@@ -29,16 +29,15 @@ const initAction = async (name, option) => {
 	const http = require('http');
 	let statusCode = 0;
 	const req = http.get({
-		host: 'baidu.com'
-	}, res => {
+		host: 'gitee.com'
+	}, async res => {
 		statusCode = res.statusCode;
+		if (statusCode === 200) {
+			await clone(`direct:${remote}#${branch}`, name, { clone: true });
+		} else {
+			await clone(`direct:${insideRemote}#${branch}`, name, { clone: true });
+		}
 	});
-
-	if (statusCode === 200) {
-		await clone(`direct:${remote}#${branch}`, name, { clone: true });
-	} else {
-		await clone(`direct:${insideRemote}#${branch}`, name, { clone: true });
-	}
 
 	// 5. 清理文件
 	const deleteDir = ['.git']; // 需要清理的文件
