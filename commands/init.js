@@ -4,7 +4,7 @@ const symbols = require('log-symbols');
 const clone = require('../utils/clone.js');
 const fs = require('fs');
 const http = require('http');
-const remote = 'https://gitee.com/bugzhang/libra-demo.git';
+const remote = 'http://gitee.com/bugzhang/libra-demo.git';
 const insideRemote = 'http://mayun.itc.cmbchina.cn/80284745/libra-demo.git';
 let branch = 'master';
 
@@ -26,7 +26,6 @@ const initAction = async (name, option) => {
 	// 2. 获取option，确定模板类型（分支）
 	if (option.dev) branch = 'develop';
 	// 4. 下载模板
-	const http = require('http');
 	let statusCode = 0;
 	const req = http.get({
 		host: 'gitee.com'
