@@ -4,8 +4,8 @@ const symbols = require('log-symbols');
 const clone = require('../utils/clone.js');
 const fs = require('fs');
 const http = require('http');
-const remote = 'http://gitee.com/bugzhang/libra-demo.git';
-const insideRemote = 'http://mayun.itc.cmbchina.cn/80284745/libra-demo.git';
+const chalk = require('chalk');
+const remote = 'https://gitee.com/bugzhang/libra-demo.git';
 let branch = 'master';
 
 const initAction = async (name, option) => {
@@ -30,12 +30,14 @@ const initAction = async (name, option) => {
 	const req = http.get({
 		host: 'gitee.com'
 	}, async res => {
-		statusCode = res.statusCode;
-		if (statusCode === 200) {
-			await clone(`direct:${remote}#${branch}`, name, { clone: true });
+		statusCode = String(res.statusCode)[0];
+		if (statusCode === '4'){
+			console.log(chalk.blue('目前为外网环境'));
+			remote = 'http://mayun.itc.cmbchina.cn/80284745/libra-demo.git'
 		} else {
-			await clone(`direct:${insideRemote}#${branch}`, name, { clone: true });
+			console.log(chalk.blue('目前为内网环境'));
 		}
+		await clone(`direct:${remote}#${branch}`, name, { clone: true });
 	});
 
 	// 5. 清理文件
