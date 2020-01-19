@@ -3,18 +3,18 @@ const shell = require('shelljs');
 const symbols = require('log-symbols');
 const clone = require('../utils/clone.js');
 const fs = require('fs');
-const http = require('http');
+const inquirer = require('inquirer');
 const chalk = require('chalk');
 const remote = 'https://gitee.com/bugzhang/libra-demo.git';
 let branch = 'master';
 
 const initAction = async (name, option) => {
-	// 0. 检查控制台是否可以运行`git `，
+	// 检查控制台是否可以运行`git `，
 	if (!shell.which('git')) {
 		console.log(symbols.error, '对不起，git命令不可用！请先安装git！');
 		shell.exit(1);
 	}
-	// 1. 验证输入name是否合法
+	// 验证输入name是否合法
 	if (fs.existsSync(name)) {
 		console.log(symbols.warning,`已存在项目文件夹${name}！`);
 		return;
@@ -23,25 +23,61 @@ const initAction = async (name, option) => {
 		console.log(symbols.error, '项目名称存在非法字符！');
 		return;
 	}
-	// 2. 获取option，确定模板类型（分支）
+	// 获取option，确定模板类型（分支）
 	if (option.dev) branch = 'develop';
-	// 4. 下载模板
-	let statusCode = 0;
-	const req = http.get({
-		host: 'gitee.com'
-	}, async res => {
-		statusCode = String(res.statusCode)[0];
-		console.log(statusCode)
-		if (statusCode === '4'){
-			console.log(chalk.blue('目前为内网环境'));
-			remote = 'http://mayun.itc.cmbchina.cn/80284745/libra-demo.git'
-		} else {
-			console.log(chalk.blue('目前为外网环境'));
-		}
-		await clone(`direct:${remote}#${branch}`, name, { clone: true });
-	});
 
-	// 5. 清理文件
+	// 定义需要询问的问题
+	const questions = [
+		{
+			type: 'list',
+			name: 'plattype',
+			message: '请选择网络类型?',
+			choices: [
+				'外网',
+				'内网',
+			]
+		},
+		{
+			type: 'input',
+			message: '请输入项目名称:',
+			default: name,
+			name: 'name',
+			validate(val) {
+				if (!val) return '项目名称不能为空！';
+				if (val.match(/[^A-Za-z0-9\u4e00-\u9fa5_-]/g)) return '项目名称包含非法字符，请重新输入';
+				return true;
+			}
+		},
+		{
+			type: 'input',
+			message: '请输入项目关键词（用;分割）:',
+			name: 'keywords',
+		},
+		{
+			type: 'input',
+			default: `A vue product name ${name}`,
+			message: '请输入项目简介:',
+			name: 'description'
+		},
+		{
+			type: 'input',
+			message: '请输入您的名字:',
+			name: 'author'
+		}
+	];
+	const answers = await inquirer.prompt(questions);
+	// 下载模板
+	if (answers.plattype === '内网') {
+		remote = 'http://mayun.itc.cmbchina.cn/80284745/libra-demo.git';
+	}
+	try {
+		await clone(`direct:${remote}#${branch}`, name, { clone: true });
+	} catch (error) {
+		console.log("对不起，下载模板失败，请检测网络类型是否选择正确!")
+	}
+
+
+	// 清理文件
 	const deleteDir = ['.git']; // 需要清理的文件
 	const pwd = shell.pwd();
 	deleteDir.map(item => shell.rm('-rf', pwd + `/${name}/${item}`));
