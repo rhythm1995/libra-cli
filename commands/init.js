@@ -5,8 +5,6 @@ const clone = require('../utils/clone.js');
 const fs = require('fs');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
-let remote = 'https://gitee.com/bugzhang/libra-demo.git';
-let branch = 'master';
 
 const initAction = async (name, option) => {
 	// 检查控制台是否可以运行`git `，
@@ -67,6 +65,8 @@ const initAction = async (name, option) => {
 	];
 	const answers = await inquirer.prompt(questions);
 	// 下载模板
+	let remote = 'https://gitee.com/bugzhang/libra-demo.git';
+	let branch = 'master';
 	if (answers.plattype === '内网') {
 		remote = 'http://mayun.itc.cmbchina.cn/80284745/libra-demo.git';
 	}
