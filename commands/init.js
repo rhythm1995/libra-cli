@@ -31,11 +31,12 @@ const initAction = async (name, option) => {
 		host: 'gitee.com'
 	}, async res => {
 		statusCode = String(res.statusCode)[0];
+		console.log(statusCode)
 		if (statusCode === '4'){
-			console.log(chalk.blue('目前为外网环境'));
+			console.log(chalk.blue('目前为内网环境'));
 			remote = 'http://mayun.itc.cmbchina.cn/80284745/libra-demo.git'
 		} else {
-			console.log(chalk.blue('目前为内网环境'));
+			console.log(chalk.blue('目前为外网环境'));
 		}
 		await clone(`direct:${remote}#${branch}`, name, { clone: true });
 	});
