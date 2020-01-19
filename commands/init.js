@@ -5,7 +5,7 @@ const clone = require('../utils/clone.js');
 const fs = require('fs');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
-const remote = 'https://gitee.com/bugzhang/libra-demo.git';
+let remote = 'https://gitee.com/bugzhang/libra-demo.git';
 let branch = 'master';
 
 const initAction = async (name, option) => {
@@ -75,7 +75,6 @@ const initAction = async (name, option) => {
 	} catch (error) {
 		console.log("对不起，下载模板失败，请检测网络类型是否选择正确!")
 	}
-
 
 	// 清理文件
 	const deleteDir = ['.git']; // 需要清理的文件
