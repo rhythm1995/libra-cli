@@ -14,7 +14,7 @@ const initAction = async (name, option) => {
 	}
 	// 验证输入name是否合法
 	if (fs.existsSync(name)) {
-		console.log(symbols.warning,`已存在项目文件夹${name}！`);
+		console.log(symbols.warning, `已存在项目文件夹${name}！`);
 		return;
 	}
 	if (name.match(/[^A-Za-z0-9\u4e00-\u9fa5_-]/g)) {
@@ -29,10 +29,10 @@ const initAction = async (name, option) => {
 		{
 			type: 'list',
 			name: 'plattype',
-			message: '请选择网络类型?',
+			message: '请选择项目平台类型?',
 			choices: [
-				'外网',
-				'内网',
+				'PC端',
+				'移动端',
 			]
 		},
 		{
@@ -67,8 +67,8 @@ const initAction = async (name, option) => {
 	// 下载模板
 	let remote = 'https://gitee.com/bugzhang/libra-demo.git';
 	let branch = 'master';
-	if (answers.plattype === '内网') {
-		remote = 'http://mayun.itc.cmbchina.cn/80284745/libra-demo.git';
+	if (answers.plattype === '移动端') {
+		branch = 'mobile';
 	}
 	try {
 		await clone(`direct:${remote}#${branch}`, name, { clone: true });

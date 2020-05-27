@@ -3,9 +3,9 @@
 ## 使用方式
 ```
 # 全局安装
-npm install -g cmb-cli
+npm install -g libra-create
 
 # 生成项目
-cmb-cli init demo
+libra-create init demo
 ```
 ![](assests/demo.svg)

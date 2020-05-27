@@ -1,7 +1,7 @@
 {
-	"name": "cmb-cli",
-	"version": "1.0.10",
-	"description": "A vue develop template cli tools",
+	"name": "libra-create",
+	"version": "1.0.1",
+	"description": "A vue develop template cli tools for libra-demo",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
