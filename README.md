@@ -6,6 +6,6 @@
 npm install -g libra-create
 
 # 生成项目
-libra-create init demo
+libra-cli init demo
 ```
 ![](assests/demo.svg)

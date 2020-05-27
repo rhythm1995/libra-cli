@@ -1,13 +1,13 @@
 {
 	"name": "libra-create",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "A vue develop template cli tools for libra-demo",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"bin": {
-		"cmb-cli": "index.js"
+		"libra-cli": "index.js"
 	},
 	"repository": {
 		"type": "git",
